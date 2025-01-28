@@ -23,6 +23,14 @@ main {
     gap: 20px;
 }
 
+main h1 {
+  text-align: center;
+}
+
+#change-due {
+  text-align: center;
+}
+
 #input-container {
     display: flex;
     align-items: center;
