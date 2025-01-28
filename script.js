@@ -14,13 +14,22 @@ let cash = document.getElementById("cash");
 
 const purchaseBtn = document.getElementById("purchase-btn");
 const changeDueContainer = document.getElementById("change-due");
+let status = "";
+let change = 0;
 
-const calculate = () => {
+const ifCashBelowOrEqual = () => {
   if (cash.value < price) {
     alert("Customer does not have enough money to purchase the item");
   } else if (Number(cash.value) === price) {
     changeDueContainer.innerHTML = "<p>No change due - customer paid with exact cash</p>"
+  } else {
+    change = calculateChange();
+    console.log(change);
   }
 };
 
-purchaseBtn.addEventListener("click", calculate);
+const calculateChange = () => {
+  return change = Number(cash.value) - price;
+}
+
+
