@@ -25,6 +25,29 @@ main {
 
 #input-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 20px;
+}
+
+input {
+    padding: 10px;
+    outline-color: grey;
+    border: none;
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    background-color: rgb(215, 190, 0);
+    transition-duration: 0.2s;
+    font-weight: bold;
+    font-size: large;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: lightyellow;
+    transition-duration: 0.2s;
 }
