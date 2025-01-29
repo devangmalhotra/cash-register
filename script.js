@@ -25,6 +25,8 @@ const ifCashBelowOrEqual = () => {
   } else {
     change = calculateChange();
     console.log(change);
+    status = determineStatus(change);
+    console.log(status);
   }
 };
 
@@ -32,4 +34,23 @@ const calculateChange = () => {
   return change = Number(cash.value) - price;
 }
 
+const determineStatus = (change) => {
+  totalCid = 0
+  
+  cid.forEach(i => {
+    totalCid += i[1];
+  });
+  
+  totalCid = Number(totalCid.toFixed(2));
+  console.log(totalCid);
+  
+  if (totalCid < change) {
+    return "INSUFFICIENT_FUNDS";
+  } else if (totalCid > change) {
+    return "OPEN";
+  }
+  
+  return "CLOSED";
+};
 
+purchaseBtn.addEventListener("click", ifCashBelowOrEqual);
