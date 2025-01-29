@@ -10,6 +10,7 @@ let cid = [
   ['TWENTY', 60],
   ['ONE HUNDRED', 100]
 ];
+
 let cash = document.getElementById("cash");
 
 const purchaseBtn = document.getElementById("purchase-btn");
@@ -27,6 +28,8 @@ const ifCashBelowOrEqual = () => {
     console.log(change);
     status = determineStatus(change);
     console.log(status);
+    coinsToGiveForChange(change);
+    updatePage(status);
   }
 };
 
@@ -35,7 +38,7 @@ const calculateChange = () => {
 }
 
 const determineStatus = (change) => {
-  totalCid = 0
+  totalCid = 0;
   
   cid.forEach(i => {
     totalCid += i[1];
@@ -51,6 +54,29 @@ const determineStatus = (change) => {
   }
   
   return "CLOSED";
+};
+
+const coinsToGiveForChange = (change) => {
+  let coinValues = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
+  let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+  coinValues.forEach((i) => {
+    if (i > change) {
+      return;
+    } else {
+      console.log(i);
+    }
+  });
+  
+};
+
+const clearChangeDueContainer = () => {
+  changeDueContainer.innerHTML = "";
+};
+
+const updatePage = (status) => {
+  clearChangeDueContainer();
+  changeDueContainer.innerHTML += `<p>Status: ${status}</p>`;
 };
 
 purchaseBtn.addEventListener("click", ifCashBelowOrEqual);
