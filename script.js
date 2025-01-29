@@ -17,6 +17,8 @@ const purchaseBtn = document.getElementById("purchase-btn");
 const changeDueContainer = document.getElementById("change-due");
 let status = "";
 let change = 0;
+let coinValues = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
+let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 const ifCashBelowOrEqual = () => {
   if (cash.value < price) {
@@ -55,9 +57,6 @@ const determineStatus = (change) => {
 };
 
 const coinsToGiveForChange = (change) => {
-  let coinValues = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
-  let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  
   let i = 0;
   while(change > 0) {
     if (coinValues[i] > change) {
@@ -72,19 +71,6 @@ const coinsToGiveForChange = (change) => {
       console.log("");
     }
   }
-  
-  for (let i = 0; i < coinValues.length; i++) {
-    if (coinValues[i] > change) {
-      continue;
-    } else if (change > 0) {
-      change -= coinValues[i];
-      amountWithEachCoin[i] += 1;
-      console.log(coinValues[i]);
-      console.log(amountWithEachCoin);
-      console.log(change);
-      console.log("");
-    }
-  };
   
 };
 
