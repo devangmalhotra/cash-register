@@ -27,7 +27,6 @@ const ifCashBelowOrEqual = () => {
     change = calculateChange();
     console.log(change);
     status = determineStatus(change);
-    console.log(status);
     coinsToGiveForChange(change);
     updatePage(status);
   }
@@ -45,7 +44,6 @@ const determineStatus = (change) => {
   });
   
   totalCid = Number(totalCid.toFixed(2));
-  console.log(totalCid);
   
   if (totalCid < change) {
     return "INSUFFICIENT_FUNDS";
@@ -60,13 +58,33 @@ const coinsToGiveForChange = (change) => {
   let coinValues = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
   let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   
-  coinValues.forEach((i) => {
-    if (i > change) {
-      return;
+  let i = 0;
+  while(change > 0) {
+    if (coinValues[i] > change) {
+      i++;
+      continue;
     } else {
-      console.log(i);
+      change -= coinValues[i];
+      amountWithEachCoin[i] += 1;
+      console.log(coinValues[i]);
+      console.log(amountWithEachCoin);
+      console.log(change);
+      console.log("");
     }
-  });
+  }
+  
+  for (let i = 0; i < coinValues.length; i++) {
+    if (coinValues[i] > change) {
+      continue;
+    } else if (change > 0) {
+      change -= coinValues[i];
+      amountWithEachCoin[i] += 1;
+      console.log(coinValues[i]);
+      console.log(amountWithEachCoin);
+      console.log(change);
+      console.log("");
+    }
+  };
   
 };
 
