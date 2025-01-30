@@ -18,7 +18,9 @@ const changeDueContainer = document.getElementById("change-due");
 let status = "";
 let change = 0;
 let coinValues = [100, 20, 10, 5, 1, 0.25, 0.1, 0.05, 0.01];
+let coinNames = ['ONE HUNDRED', 'TWENTY', 'TEN', 'FIVE', 'ONE', 'QUARTER', 'DIME', 'NICKEL', 'PENNY'];
 let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 
 const ifCashBelowOrEqual = () => {
   if (cash.value < price) {
@@ -27,10 +29,10 @@ const ifCashBelowOrEqual = () => {
     changeDueContainer.innerHTML = "<p>No change due - customer paid with exact cash</p>"
   } else {
     change = calculateChange();
-    console.log(change);
+    //console.log(change);
     status = determineStatus(change);
-    coinsToGiveForChange(change);
-    updatePage(status);
+    let dollarAmountOfEachCoin = coinsToGiveForChange(change);
+    updatePage(status, dollarAmountOfEachCoin);
   }
 };
 
@@ -57,6 +59,8 @@ const determineStatus = (change) => {
 };
 
 const coinsToGiveForChange = (change) => {
+  let dollarAmountOfEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
   let i = 0;
   while(change > 0) {
     if (coinValues[i] > change) {
@@ -65,12 +69,17 @@ const coinsToGiveForChange = (change) => {
     } else {
       change -= coinValues[i];
       amountWithEachCoin[i] += 1;
-      console.log(coinValues[i]);
-      console.log(amountWithEachCoin);
-      console.log(change);
-      console.log("");
+      dollarAmountOfEachCoin[i] += coinValues[i];
+      //console.log(coinValues[i]);
+      //console.log(amountWithEachCoin);
+      //console.log(dollarAmountOfEachCoin);
+      
+      //console.log(change);
+      //console.log("");
     }
   }
+  
+  return dollarAmountOfEachCoin;
   
 };
 
@@ -78,9 +87,18 @@ const clearChangeDueContainer = () => {
   changeDueContainer.innerHTML = "";
 };
 
-const updatePage = (status) => {
+const updatePage = (status, dollarAmountOfEachCoin) => {
   clearChangeDueContainer();
   changeDueContainer.innerHTML += `<p>Status: ${status}</p>`;
+  console.log(dollarAmountOfEachCoin)
+  
+  for (let a = 0; a < dollarAmountOfEachCoin.length; a++){
+    if (dollarAmountOfEachCoin[a] > 0) {
+      changeDueContainer.innerHTML += `<p>${coinNames[a]}: $${dollarAmountOfEachCoin[a]}</p>`;
+      console.log(`${coinNames[a]}: $${dollarAmountOfEachCoin[a]}`);
+    }
+    
+  }
 };
 
 purchaseBtn.addEventListener("click", ifCashBelowOrEqual);
