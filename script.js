@@ -15,7 +15,7 @@ let cash = document.getElementById("cash");
 
 const purchaseBtn = document.getElementById("purchase-btn");
 const changeDueContainer = document.getElementById("change-due");
-let status = "";
+let registerStatus = "";
 let change = 0;
 let coinValues = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
 let coinNames = ['PENNY', 'NICKEL', 'DIME', 'QUARTER', 'ONE', 'FIVE', 'TEN', 'TWENTY', 'ONE HUNDRED'];
@@ -32,9 +32,9 @@ const ifCashBelowOrEqual = () => {
     //console.log(change);
     let totalCid = getTotalCid(cid);
     console.log(change);
-    status = determineStatus(change, totalCid);
+    registerStatus = determineStatus(change, totalCid);
     let dollarAmountOfEachCoin = coinsToGiveForChange(change);
-    updatePage(status, dollarAmountOfEachCoin);
+    updatePage(registerStatus, dollarAmountOfEachCoin);
   }
 };
 
@@ -95,9 +95,9 @@ const clearChangeDueContainer = () => {
   changeDueContainer.innerHTML = "";
 };
 
-const updatePage = (status, dollarAmountOfEachCoin) => {
+const updatePage = (registerStatus, dollarAmountOfEachCoin) => {
   clearChangeDueContainer();
-  changeDueContainer.innerHTML += `<p>Status: ${status}</p>`;
+  changeDueContainer.innerHTML += `<p>Status: ${registerStatus}</p>`;
   console.log(dollarAmountOfEachCoin)
   
   for (let a = dollarAmountOfEachCoin.length - 1; a >= 0; a--){
