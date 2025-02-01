@@ -15,12 +15,13 @@ let cash = document.getElementById("cash");
 
 const purchaseBtn = document.getElementById("purchase-btn");
 const changeDueContainer = document.getElementById("change-due");
+const cidDisplayContainer = document.getElementById("cid-text-each-coin-bill");
+const priceDisplayContainer = document.getElementById("price-display");
 let registerStatus = "";
 let change = 0;
 let coinValues = [0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100];
-let coinNames = ['PENNY', 'NICKEL', 'DIME', 'QUARTER', 'ONE', 'FIVE', 'TEN', 'TWENTY', 'ONE HUNDRED'];
+let coinNames = ['Pennies', 'Nickles', 'Dimes', 'Quarters', 'Ones', 'Fives', 'Tens', 'Twenties', 'Hundreds'];
 let amountWithEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-
 
 const ifCashBelowOrEqual = () => {
   if (cash.value < price) {
@@ -34,7 +35,8 @@ const ifCashBelowOrEqual = () => {
     console.log(change);
     registerStatus = determineStatus(change, totalCid);
     let dollarAmountOfEachCoin = coinsToGiveForChange(change);
-    updatePage(registerStatus, dollarAmountOfEachCoin);
+    updateChangeDueContainer(registerStatus, dollarAmountOfEachCoin);
+    updateCidDisplay(cid);
   }
 };
 
@@ -95,18 +97,28 @@ const clearChangeDueContainer = () => {
   changeDueContainer.innerHTML = "";
 };
 
-const updatePage = (registerStatus, dollarAmountOfEachCoin) => {
+const updateChangeDueContainer = (registerStatus, dollarAmountOfEachCoin) => {
   clearChangeDueContainer();
   changeDueContainer.innerHTML += `<p>Status: ${registerStatus}</p>`;
   console.log(dollarAmountOfEachCoin)
   
   for (let a = dollarAmountOfEachCoin.length - 1; a >= 0; a--){
     if (dollarAmountOfEachCoin[a] > 0) {
-      changeDueContainer.innerHTML += `<p>${coinNames[a]}: $${dollarAmountOfEachCoin[a]}</p>`;
-      console.log(`${coinNames[a]}: $${dollarAmountOfEachCoin[a]}`);
+      changeDueContainer.innerHTML += `<p>${cid[a][0]}: $${dollarAmountOfEachCoin[a]}</p>`;
+      console.log(`${cid[a][0]}: $${dollarAmountOfEachCoin[a]}`);
     }
     
   }
 };
+
+const updateCidDisplay = (cid) => {
+  cidDisplayContainer.innerHTML = "";
+  for (let i = 0; i < cid.length; i++) {
+    cidDisplayContainer.innerHTML += `<p>${coinNames[i]}: $${cid[i][1]}</p>`;
+  }
+}
+
+priceDisplayContainer.innerHTML = `<p>Total: $${price}</p>`;
+updateCidDisplay(cid);
 
 purchaseBtn.addEventListener("click", ifCashBelowOrEqual);

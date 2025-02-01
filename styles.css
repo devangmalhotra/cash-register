@@ -12,6 +12,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   height: 100vh;
+  overflow:visible;
 }
 
 main {
@@ -21,6 +22,7 @@ main {
   height: 100%;
   flex-direction: column;
   gap: 20px;
+  overflow: scroll;
 }
 
 main h1 {
@@ -81,6 +83,11 @@ border: solid 8px #89cff0;
 background-color: white;
 color: black;
 display: flex;
-align-items: center;
 justify-content: center;
+flex-direction: column;
+padding: 10px;
+}
+
+#cid-text-each-coin-bill {
+  margin-bottom: 10px;
 }
