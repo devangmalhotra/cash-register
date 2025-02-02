@@ -29,7 +29,7 @@ const ifCashBelowOrEqual = () => {
   } else if (Number(cash.value) === price) {
     changeDueContainer.innerHTML = "<p>No change due - customer paid with exact cash</p>"
   } else {
-    change = calculateChange();
+    change = Number(calculateChange().toFixed(2));
     //console.log(change);
     let totalCid = getTotalCid(cid);
     console.log(change);
@@ -82,14 +82,9 @@ const coinsToGiveForChange = (change) => {
       change = Number(change.toFixed(2));
       amountWithEachCoin[i] += 1;
       dollarAmountOfEachCoin[i] += coinValues[i];
+      dollarAmountOfEachCoin[i] = Number(dollarAmountOfEachCoin[i].toFixed(2));
       cid[i][1] -= coinValues[i];
-      //console.log(cid);
-      //console.log(coinValues[i]);
-      //console.log(amountWithEachCoin);
-      //console.log(dollarAmountOfEachCoin);
-      
-      //console.log(change);
-      //console.log("");
+      cid[i][1] = Number(cid[i][1].toFixed(2));
     }
   }
 
