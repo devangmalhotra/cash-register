@@ -1,10 +1,10 @@
 let price = 19.5;
 let cid = [
-  ['PENNY', 0.01],
+  ['PENNY', 0.5],
   ['NICKEL', 0],
   ['DIME', 0],
   ['QUARTER', 0],
-  ['ONE', 1],
+  ['ONE', 0],
   ['FIVE', 0],
   ['TEN', 0],
   ['TWENTY', 0],
@@ -71,7 +71,6 @@ const determineStatus = (change, totalCid) => {
 const coinsToGiveForChange = (change) => {
   let dollarAmountOfEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let totalCid = getTotalCid(cid);
-  console.log(totalCid);
   
   let i = dollarAmountOfEachCoin.length - 1;
   while(change > 0 && i >= 0) {
@@ -84,15 +83,20 @@ const coinsToGiveForChange = (change) => {
       amountWithEachCoin[i] += 1;
       dollarAmountOfEachCoin[i] += coinValues[i];
       cid[i][1] -= coinValues[i];
+      //console.log(cid);
+      //console.log(coinValues[i]);
+      //console.log(amountWithEachCoin);
+      //console.log(dollarAmountOfEachCoin);
+      
+      //console.log(change);
+      //console.log("");
     }
   }
 
-  console.log(change);
-
   if (change > 0) {
     dollarAmountOfEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-  };
-  
+    registerStatus = determineStatus(999, 0);
+  }
   
   return dollarAmountOfEachCoin;
   
