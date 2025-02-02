@@ -1,14 +1,14 @@
-let price = 1;
+let price = 19.5;
 let cid = [
-  ['PENNY', 1.01],
-  ['NICKEL', 2.05],
-  ['DIME', 3.1],
-  ['QUARTER', 4.25],
-  ['ONE', 90],
-  ['FIVE', 55],
-  ['TEN', 20],
-  ['TWENTY', 60],
-  ['ONE HUNDRED', 100]
+  ['PENNY', 0.01],
+  ['NICKEL', 0],
+  ['DIME', 0],
+  ['QUARTER', 0],
+  ['ONE', 1],
+  ['FIVE', 0],
+  ['TEN', 0],
+  ['TWENTY', 0],
+  ['ONE HUNDRED', 0]
 ];
 
 let cash = document.getElementById("cash");
@@ -45,13 +45,15 @@ const calculateChange = () => {
 }
 
 const getTotalCid = (cid) => {
-  totalCid = 0;
+  let totalCid = 0;
   
   cid.forEach(i => {
     totalCid += i[1];
   });
   
+  //console.log(totalCid)
   totalCid = Number(totalCid.toFixed(2));
+  //console.log(totalCid)
   
   return totalCid;
 }
@@ -68,26 +70,29 @@ const determineStatus = (change, totalCid) => {
 
 const coinsToGiveForChange = (change) => {
   let dollarAmountOfEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let totalCid = getTotalCid(cid);
+  console.log(totalCid);
   
   let i = dollarAmountOfEachCoin.length - 1;
   while(change > 0 && i >= 0) {
-    if (coinValues[i] > change || cid[i][1] === 0) {
+    if (coinValues[i] > change || cid[i][1] < coinValues[i] || totalCid < change) {
       i--;
       continue;
     } else {
       change -= coinValues[i];
+      change = Number(change.toFixed(2));
       amountWithEachCoin[i] += 1;
       dollarAmountOfEachCoin[i] += coinValues[i];
       cid[i][1] -= coinValues[i];
-      console.log(cid);
-      //console.log(coinValues[i]);
-      //console.log(amountWithEachCoin);
-      //console.log(dollarAmountOfEachCoin);
-      
-      //console.log(change);
-      //console.log("");
     }
   }
+
+  console.log(change);
+
+  if (change > 0) {
+    dollarAmountOfEachCoin = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  };
+  
   
   return dollarAmountOfEachCoin;
   
@@ -100,12 +105,12 @@ const clearChangeDueContainer = () => {
 const updateChangeDueContainer = (registerStatus, dollarAmountOfEachCoin) => {
   clearChangeDueContainer();
   changeDueContainer.innerHTML += `<p>Status: ${registerStatus}</p>`;
-  console.log(dollarAmountOfEachCoin)
+  //console.log(dollarAmountOfEachCoin)
   
   for (let a = dollarAmountOfEachCoin.length - 1; a >= 0; a--){
     if (dollarAmountOfEachCoin[a] > 0) {
       changeDueContainer.innerHTML += `<p>${cid[a][0]}: $${dollarAmountOfEachCoin[a]}</p>`;
-      console.log(`${cid[a][0]}: $${dollarAmountOfEachCoin[a]}`);
+      //console.log(`${cid[a][0]}: $${dollarAmountOfEachCoin[a]}`);
     }
     
   }
